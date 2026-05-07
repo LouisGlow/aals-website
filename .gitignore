@@ -1,0 +1,13 @@
+# System
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+*.swp
+
+# Node (for favicon scripts)
+node_modules/
+
+# Zip sources
+images.zip
