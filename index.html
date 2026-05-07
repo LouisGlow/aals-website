@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Academy of Advanced Life Support | AALS Johannesburg</title>
+  <meta name="description" content="Advanced and Basic Life Support courses in Gauteng for Healthcare Providers. AHA-accredited ACLS, PALS, BLS, ITLS and more — taught by world-class faculty in Johannesburg.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue:        #1848b8;
+      --blue-dark:   #0f2f8a;
+      --blue-light:  #e8eef9;
+      --blue-mid:    #c2d0f0;
+      --red:         #d80000;
+      --red-hover:   #b50000;
+      --white:       #ffffff;
+      --grey-bg:     #f5f6f8;
+      --grey-border: #e2e5ec;
+      --text-dark:   #1a1a2e;
+      --text-mid:    #3d4a5c;
+      --text-light:  #6b7a8d;
+      --nav-h:       68px;
+      --fh:          'Outfit', sans-serif;
+      --fb:          'DM Sans', sans-serif;
+      --r:           8px;
+      --rl:          12px;
+      --sh-sm:       0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.04);
+      --sh-md:       0 4px 16px rgba(0,0,0,.08), 0 2px 6px rgba(0,0,0,.04);
+      --sh-lg:       0 8px 32px rgba(0,0,0,.10), 0 4px 12px rgba(0,0,0,.06);
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--fb); color: var(--text-dark); background: var(--white); line-height: 1.6; font-size: 16px; -webkit-font-smoothing: antialiased; }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+    /* BUTTONS */
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border-radius: var(--r); font-family: var(--fb); font-weight: 600; font-size: 15px; cursor: pointer; border: 2px solid transparent; transition: all .2s ease; letter-spacing: .01em; }
+    .btn-blue  { background: var(--blue);  color: #fff; border-color: var(--blue);  }
+    .btn-blue:hover  { background: var(--blue-dark); border-color: var(--blue-dark); transform: translateY(-1px); box-shadow: var(--sh-md); }
+    .btn-red   { background: var(--red);   color: #fff; border-color: var(--red);   }
+    .btn-red:hover   { background: var(--red-hover); border-color: var(--red-hover); transform: translateY(-1px); box-shadow: var(--sh-md); }
+    .btn-outline { background: transparent; color: var(--blue); border-color: var(--blue); }
+    .btn-outline:hover { background: var(--blue); color: #fff; }
+    .btn-sm { padding: 8px 16px; font-size: 13px; }
+
+    /* TYPOGRAPHY */
+    .label { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--blue); margin-bottom: 10px; }
+    .sec-heading { font-family: var(--fh); font-size: clamp(26px, 4vw, 40px); font-weight: 700; color: var(--text-dark); line-height: 1.2; margin-bottom: 12px; }
+    .sec-sub { font-size: 17px; color: var(--text-mid); max-width: 580px; line-height: 1.7; }
+    .sec-hdr { margin-bottom: 48px; }
+    .sec-hdr.center { text-align: center; }
+    .sec-hdr.center .sec-sub { margin: 0 auto; }
+
+    section { padding: 80px 0; }
+    section.grey { background: var(--grey-bg); }
+
+    /* FADE IN */
+    .fi { opacity: 0; transform: translateY(22px); transition: opacity .55s ease, transform .55s ease; }
+    .fi.on { opacity: 1; transform: none; }
+
+    /* TOP BAR */
+    .topbar { background: var(--blue); color: rgba(255,255,255,.88); font-size: 13px; padding: 7px 0; }
+    .topbar-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px; }
+    .topbar a { color: rgba(255,255,255,.88); transition: color .15s; }
+    .topbar a:hover { color: #fff; }
+    .topbar-right { display: flex; gap: 24px; }
+
+    /* HEADER */
+    header { position: sticky; top: 0; z-index: 1000; background: var(--white); border-bottom: 1px solid var(--grey-border); transition: box-shadow .3s; }
+    header.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,.10); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: var(--nav-h); }
+    .nav-logo img { height: 42px; width: auto; }
+    .nav-links { display: flex; align-items: center; gap: 2px; }
+    .nav-links a { font-size: 14px; font-weight: 500; color: var(--text-mid); padding: 8px 13px; border-radius: var(--r); transition: color .15s, background .15s; }
+    .nav-links a:hover { color: var(--blue); background: var(--blue-light); }
+    .nav-cta { margin-left: 10px; }
+    .burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; background: none; border: none; }
+    .burger span { display: block; width: 24px; height: 2px; background: var(--text-dark); border-radius: 2px; transition: all .3s; }
+    .burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .burger.open span:nth-child(2) { opacity: 0; }
+    .burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mob-nav { display: none; flex-direction: column; padding: 12px 24px 20px; border-top: 1px solid var(--grey-border); background: var(--white); }
+    .mob-nav.open { display: flex; }
+    .mob-nav a { font-size: 15px; font-weight: 500; color: var(--text-dark); padding: 12px 0; border-bottom: 1px solid var(--grey-border); }
+    .mob-nav a:last-child { border: none; margin-top: 12px; }
+
+    /* HERO */
+    .hero { position: relative; min-height: 580px; display: flex; align-items: center; padding: 80px 0; overflow: hidden; }
+    .hero-bg { position: absolute; inset: 0; background: url('assets/images/hero/hero-home.jpg') center top / cover no-repeat; }
+    .hero-bg::after { content: ''; position: absolute; inset: 0; background: linear-gradient(108deg, rgba(10,22,60,.84) 0%, rgba(24,72,184,.52) 55%, rgba(10,22,60,.38) 100%); }
+    .hero-content { position: relative; z-index: 1; max-width: 660px; }
+    .hero-pill { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,.14); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,.22); color: rgba(255,255,255,.95); font-size: 12px; font-weight: 600; letter-spacing: .10em; text-transform: uppercase; padding: 6px 14px; border-radius: 100px; margin-bottom: 22px; }
+    .hero h1 { font-family: var(--fh); font-size: clamp(30px, 5vw, 54px); font-weight: 800; color: #fff; line-height: 1.1; margin-bottom: 18px; letter-spacing: -.02em; }
+    .hero-sub { font-size: 18px; color: rgba(255,255,255,.86); line-height: 1.65; margin-bottom: 32px; max-width: 540px; }
+    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 36px; }
+    .hero .btn-white { background: #fff; color: var(--blue); border-color: #fff; font-weight: 700; }
+    .hero .btn-white:hover { background: var(--blue-light); border-color: var(--blue-light); }
+    .hero-badges { display: flex; flex-wrap: wrap; gap: 10px; }
+    .hero-badge { display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,.12); backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,.20); color: rgba(255,255,255,.93); font-size: 13px; font-weight: 500; padding: 8px 13px; border-radius: var(--r); }
+
+    /* ABOUT */
+    .about-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .about-text p { font-size: 16.5px; color: var(--text-mid); line-height: 1.8; margin-bottom: 20px; }
+    .stat-item { display: flex; gap: 18px; padding: 22px 0; border-bottom: 1px solid var(--grey-border); align-items: flex-start; }
+    .stat-item:first-child { padding-top: 0; }
+    .stat-item:last-child { border: none; padding-bottom: 0; }
+    .stat-icon { width: 44px; height: 44px; background: var(--blue-light); border-radius: var(--r); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+    .stat-num { font-family: var(--fh); font-size: 26px; font-weight: 800; color: var(--blue); line-height: 1; margin-bottom: 3px; }
+    .stat-desc { font-size: 13.5px; color: var(--text-light); line-height: 1.5; }
+
+    /* COURSES */
+    .courses-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    .course-card { background: var(--white); border-radius: var(--rl); overflow: hidden; box-shadow: var(--sh-sm); border: 1px solid var(--grey-border); display: flex; flex-direction: column; transition: transform .25s, box-shadow .25s; }
+    .course-card:hover { transform: translateY(-4px); box-shadow: var(--sh-lg); }
+    .c-img { position: relative; height: 175px; overflow: hidden; background: var(--blue-light); }
+    .c-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s; }
+    .course-card:hover .c-img img { transform: scale(1.06); }
+    .c-img-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 44px; background: linear-gradient(135deg, var(--blue-light) 0%, #d8e5ff 100%); }
+    .dur-badge { position: absolute; bottom: 10px; left: 10px; background: rgba(10,22,60,.82); backdrop-filter: blur(4px); color: #fff; font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 100px; letter-spacing: .04em; }
+    .c-body { padding: 20px; display: flex; flex-direction: column; flex: 1; }
+    .c-title { font-family: var(--fh); font-size: 15.5px; font-weight: 700; color: var(--text-dark); margin-bottom: 8px; line-height: 1.3; }
+    .c-desc { font-size: 13.5px; color: var(--text-mid); line-height: 1.65; flex: 1; margin-bottom: 16px; }
+    .c-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 14px; border-top: 1px solid var(--grey-border); }
+    .ceu-pill { background: var(--blue-light); color: var(--blue); font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 100px; }
+
+    /* FACULTY */
+    .faculty-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+    .fac-card { background: var(--white); border-radius: var(--rl); overflow: hidden; box-shadow: var(--sh-md); border: 1px solid var(--grey-border); display: grid; grid-template-columns: 190px 1fr; }
+    .fac-img { width: 190px; height: 100%; min-height: 270px; object-fit: cover; object-position: top center; }
+    .fac-info { padding: 28px 24px; display: flex; flex-direction: column; justify-content: center; }
+    .fac-role { font-size: 11px; font-weight: 700; letter-spacing: .10em; text-transform: uppercase; color: var(--red); margin-bottom: 7px; }
+    .fac-name { font-family: var(--fh); font-size: 20px; font-weight: 700; color: var(--text-dark); margin-bottom: 6px; line-height: 1.2; }
+    .fac-quals { font-size: 13px; color: var(--blue); font-weight: 500; margin-bottom: 12px; line-height: 1.55; }
+    .fac-bio { font-size: 14px; color: var(--text-mid); line-height: 1.75; }
+
+    /* ACCREDITATION */
+    .accred-logos { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 28px 0; }
+    .acc-badge { display: flex; align-items: center; gap: 10px; padding: 11px 18px; border: 1.5px solid var(--grey-border); border-radius: var(--r); font-size: 13px; font-weight: 600; color: var(--text-dark); background: var(--white); transition: border-color .2s, background .2s, color .2s; }
+    .acc-badge:hover { border-color: var(--blue); background: var(--blue-light); color: var(--blue); }
+    .acc-icon { width: 30px; height: 30px; background: var(--blue-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+    .accred-postgrad { text-align: center; font-size: 14px; color: var(--text-mid); padding: 16px 20px; background: var(--grey-bg); border-radius: var(--r); margin-top: 8px; }
+    .accred-postgrad strong { color: var(--text-dark); }
+
+    /* DATES */
+    .dates-wrap { overflow-x: auto; border-radius: var(--rl); box-shadow: var(--sh-sm); border: 1px solid var(--grey-border); }
+    .dates-tbl { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+    .dates-tbl th { background: var(--blue); color: #fff; font-family: var(--fh); font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; padding: 14px 20px; text-align: left; }
+    .dates-tbl td { padding: 14px 20px; border-bottom: 1px solid var(--grey-border); color: var(--text-dark); }
+    .dates-tbl tr:last-child td { border: none; }
+    .dates-tbl tr:nth-child(even) td { background: #fafbfc; }
+    .dates-tbl tr:hover td { background: var(--blue-light); }
+    .tbl-ceu { display: inline-block; background: var(--blue-light); color: var(--blue); font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 100px; }
+    .dates-cta { text-align: center; margin-top: 32px; }
+
+    /* ACCOMMODATION */
+    .accom-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .accom-card { background: var(--white); border: 1px solid var(--grey-border); border-radius: var(--rl); padding: 22px; display: flex; flex-direction: column; gap: 10px; transition: box-shadow .2s, border-color .2s; }
+    .accom-card:hover { box-shadow: var(--sh-md); border-color: var(--blue); }
+    .accom-ico { width: 38px; height: 38px; background: var(--blue-light); border-radius: var(--r); display: flex; align-items: center; justify-content: center; font-size: 17px; }
+    .accom-name { font-family: var(--fh); font-size: 15.5px; font-weight: 700; color: var(--text-dark); }
+    .accom-addr { font-size: 13px; color: var(--text-light); line-height: 1.5; }
+    .accom-contact { font-size: 13px; color: var(--text-mid); margin-top: auto; padding-top: 10px; border-top: 1px solid var(--grey-border); line-height: 1.7; }
+    .accom-contact a { color: var(--blue); font-weight: 500; }
+
+    /* CONTACT */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+    .ci { display: flex; gap: 14px; margin-bottom: 18px; align-items: flex-start; }
+    .ci-icon { width: 38px; height: 38px; background: var(--blue-light); border-radius: var(--r); display: flex; align-items: center; justify-content: center; font-size: 17px; flex-shrink: 0; }
+    .ci-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--text-light); margin-bottom: 2px; }
+    .ci-val { font-size: 15px; color: var(--text-dark); font-weight: 500; }
+    .ci-val a { color: var(--blue); }
+    .map-wrap { border-radius: var(--rl); overflow: hidden; box-shadow: var(--sh-md); border: 1px solid var(--grey-border); margin-bottom: 24px; }
+    .map-wrap iframe { display: block; width: 100%; height: 380px; border: none; }
+    .contact-form-box { background: var(--grey-bg); border-radius: var(--rl); padding: 28px; border: 1px solid var(--grey-border); margin-top: 28px; }
+    .contact-form-box h3 { font-family: var(--fh); font-size: 18px; font-weight: 700; margin-bottom: 18px; color: var(--text-dark); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .fg { display: flex; flex-direction: column; gap: 5px; margin-bottom: 14px; }
+    .fg label { font-size: 12.5px; font-weight: 600; color: var(--text-mid); }
+    .fg input, .fg select, .fg textarea { padding: 10px 13px; border: 1.5px solid var(--grey-border); border-radius: var(--r); font-family: var(--fb); font-size: 14px; color: var(--text-dark); background: var(--white); transition: border-color .2s, box-shadow .2s; outline: none; }
+    .fg input:focus, .fg select:focus, .fg textarea:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(24,72,184,.10); }
+    .fg textarea { resize: vertical; min-height: 96px; }
+
+    /* FOOTER */
+    footer { background: var(--text-dark); color: rgba(255,255,255,.72); padding: 60px 0 28px; }
+    .foot-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 44px; margin-bottom: 44px; }
+    .foot-brand img { height: 38px; width: auto; margin-bottom: 14px; filter: brightness(0) invert(1); opacity: .88; }
+    .foot-tag { font-size: 14px; line-height: 1.7; max-width: 240px; margin-bottom: 18px; }
+    .foot-fb a { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: rgba(255,255,255,.65); border: 1px solid rgba(255,255,255,.15); padding: 8px 14px; border-radius: var(--r); transition: all .2s; }
+    .foot-fb a:hover { background: rgba(255,255,255,.10); color: #fff; }
+    .foot-col h4 { font-family: var(--fh); font-size: 13px; font-weight: 700; color: #fff; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 14px; }
+    .foot-links { display: flex; flex-direction: column; gap: 9px; }
+    .foot-links a { font-size: 14px; color: rgba(255,255,255,.62); transition: color .2s; }
+    .foot-links a:hover { color: #fff; }
+    .fci { display: flex; gap: 10px; font-size: 13.5px; margin-bottom: 10px; line-height: 1.5; color: rgba(255,255,255,.68); }
+    .fci span:first-child { flex-shrink: 0; }
+    .fci a { color: rgba(255,255,255,.68); transition: color .2s; }
+    .fci a:hover { color: #fff; }
+    .foot-bottom { padding-top: 24px; border-top: 1px solid rgba(255,255,255,.10); display: flex; justify-content: space-between; align-items: center; font-size: 13px; }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .courses-grid { grid-template-columns: repeat(2, 1fr); }
+      .foot-grid { grid-template-columns: 1fr 1fr; }
+      .about-inner { grid-template-columns: 1fr; gap: 40px; }
+    }
+    @media (max-width: 768px) {
+      section { padding: 56px 0; }
+      .nav-links, .nav-cta { display: none; }
+      .burger { display: flex; }
+      .faculty-grid { grid-template-columns: 1fr; }
+      .fac-card { grid-template-columns: 150px 1fr; }
+      .fac-img { min-height: 200px; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .accom-grid { grid-template-columns: 1fr 1fr; }
+      .foot-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
+      .foot-brand { grid-column: 1 / -1; }
+    }
+    @media (max-width: 480px) {
+      .courses-grid { grid-template-columns: 1fr; }
+      .accom-grid { grid-template-columns: 1fr; }
+      .fac-card { grid-template-columns: 1fr; }
+      .fac-img { width: 100%; height: 200px; object-position: top; }
+      .foot-grid { grid-template-columns: 1fr; }
+      .foot-bottom { flex-direction: column; gap: 8px; text-align: center; }
+      .hero { min-height: 480px; padding: 60px 0; }
+      .topbar-right { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="container">
+    <div class="topbar-inner">
+      <span>📍 72 Sophia Street, Fairland, Johannesburg</span>
+      <div class="topbar-right">
+        <a href="tel:+27114781874">📞 +27 (0)11 478 1874</a>
+        <a href="mailto:linda@resus.co.za">✉ linda@resus.co.za</a>
+        <span>🕐 Mon–Fri: 8:00–17:30</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header id="hdr">
+  <div class="container">
+    <nav class="nav-inner" aria-label="Main navigation">
+      <a href="#" class="nav-logo" aria-label="AALS Home">
+        <img src="assets/images/AALS-Logo-2026.png" alt="Academy of Advanced Life Support">
+      </a>
+      <ul class="nav-links" role="list">
+        <li><a href="#courses">Courses</a></li>
+        <li><a href="#faculty">Our Faculty</a></li>
+        <li><a href="#dates">Course Dates</a></li>
+        <li><a href="#accommodation">Accommodation</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <a href="#contact" class="btn btn-red nav-cta">Book a Course</a>
+      <button class="burger" id="burger" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </div>
+  <nav class="mob-nav" id="mob-nav" aria-label="Mobile navigation">
+    <a href="#courses">Courses</a>
+    <a href="#faculty">Our Faculty</a>
+    <a href="#dates">Course Dates</a>
+    <a href="#accommodation">Accommodation</a>
+    <a href="#contact">Contact</a>
+    <a href="#contact" class="btn btn-red">Book a Course</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero" aria-label="Hero banner">
+  <div class="hero-bg" role="img" aria-label="Healthcare professionals in a life support training session"></div>
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-pill">🏥 Gauteng's Premier Life Support Academy</div>
+      <h1>Advanced Life Support Training for Healthcare&nbsp;Professionals</h1>
+      <p class="hero-sub">AHA-accredited ACLS, PALS, BLS, ITLS and more — taught by world-class faculty in Johannesburg</p>
+      <div class="hero-btns">
+        <a href="#courses" class="btn btn-white">View Courses</a>
+        <a href="#contact" class="btn btn-red">Book a Course</a>
+      </div>
+      <div class="hero-badges">
+        <div class="hero-badge"><span>🏥</span><span>AHA Accredited</span></div>
+        <div class="hero-badge"><span>📋</span><span>HPCSA CPD Approved</span></div>
+        <div class="hero-badge"><span>👨‍⚕️</span><span>30+ Years Experience</span></div>
+        <div class="hero-badge"><span>🎓</span><span>Internationally Recognised</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="grey">
+  <div class="container">
+    <div class="about-inner">
+      <div class="fi">
+        <span class="label">About AALS</span>
+        <h2 class="sec-heading">Training that saves lives</h2>
+        <p>The Academy of Advanced Life Support was founded with a single purpose — to help registered Doctors, Nurses and Advanced Life Support Paramedics improve their understanding, ability and confidence in resuscitation and emergency care.</p>
+        <p>Our courses follow the scientific evidence-based guidelines of the American Heart Association (AHA), the American Academy of Pediatrics (AAP) and the International Liaison Committee on Resuscitation (ILCOR).</p>
+        <a href="#courses" class="btn btn-blue">Explore Our Courses</a>
+      </div>
+      <div class="fi">
+        <div class="stat-item">
+          <div class="stat-icon">📚</div>
+          <div><div class="stat-num">10</div><div class="stat-desc">Courses — from BLS to ITLS, covering the full spectrum</div></div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon">🏅</div>
+          <div><div class="stat-num">AHA</div><div class="stat-desc">Certified — internationally recognised certificates</div></div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon">✅</div>
+          <div><div class="stat-num">HPCSA</div><div class="stat-desc">Approved — CPD credits awarded for all courses</div></div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon">📖</div>
+          <div><div class="stat-num">80+</div><div class="stat-desc">International publications by our Medical Director</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COURSES -->
+<section id="courses">
+  <div class="container">
+    <div class="sec-hdr center fi">
+      <span class="label">Our Courses</span>
+      <h2 class="sec-heading">Evidence-Based Life Support Training</h2>
+      <p class="sec-sub">Following AHA, AAP and ILCOR guidelines — all courses are HPCSA CPD-approved</p>
+    </div>
+    <div class="courses-grid">
+
+      <div class="course-card fi">
+        <div class="c-img"><img src="assets/images/courses/bls.jpg" alt="Basic Life Support course"><span class="dur-badge">5 Hours</span></div>
+        <div class="c-body">
+          <h3 class="c-title">Basic Life Support (BLS)</h3>
+          <p class="c-desc">Foundation CPR, AED and airway management for all healthcare workers. AHA BLS for Healthcare Providers Certificate awarded.</p>
+          <div class="c-footer"><span class="ceu-pill">11 CEUs</span><a href="#contact" class="btn btn-outline btn-sm">Enquire</a></div>
+        </div>
+      </div>
+
+      <div class="course-card fi">
+        <div class="c-img"><img src="assets/images/courses/acls.jpg" alt="Advanced Cardiovascular Life Support"><span class="dur-badge">2½ Days</span></div>
+        <div class="c-body">
+          <h3 class="c-title">Advanced Cardiovascular Life Support (ACLS)</h3>
+          <p class="c-desc">Algorithm-based cardiac arrest and arrhythmia management. Mandatory pre-course study. AHA ACLS Provider Certificate.</p>
+          <div class="c-footer"><span class="ceu-pill">30 CEUs</span><a href="#contact" class="btn btn-outline btn-sm">Enquire</a></div>
+        </div>
+      </div>
+
+      <div class="course-card fi">
+        <div class="c-img"><img src="assets/images/courses/acls-ep.jpg" alt="ACLS for Experienced Providers"><span class="dur-badge">2 Days</span></div>
+        <div class="c-body">
+          <h3 class="c-title">ACLS for Experienced Providers (ACLS-EP)</h3>
+          <p class="c-desc">Intensive update for current ACLS holders — EMS, ED and ICU focus. AHA ACLS for Experienced Providers Certificate.</p>
+          <div class="c-footer"><span class="ceu-pill">30 CEUs</span><a href="#contact" class="btn btn-outline btn-sm">Enquire</a></div>
+        </div>
+      </div>
+
+      <div class="course-card fi">
+        <div class="c-img"><img src="assets/images/courses/pals.jpg" alt="Paediatric Advanced Life Support"><span class="dur-badge">2 Days</span></div>
+        <div class="c-body">
+          <h3 class="c-title">Paediatric Advanced Life Support (PALS)</h3>
+          <p class="c-desc">Systematic assessment and management of critically ill infants and children. AHA PALS Provider Certificate.</p>
+          <div class="c-footer"><span class="ceu-pill">30 CEUs</span><a href="#contact" class="btn btn-outline btn-sm">Enquire</a></div>
+        </div>
+      </div>
+
+      <div class="course-card fi">
+        <div class="c-img"><img src="assets/images/courses/pals-refresher.jpg" alt="PALS for Experienced Providers"><span class="dur-badge">2 Days</span></div>
+        <div class="c-body">
+          <h3 class="c-title">PALS for Experienced Providers (PALS-EP)</h3>
+          <p class="c-desc">Advanced paediatric scenarios including DKA, burns, status epilepticus and ventilation. AHA PALS Certificate.</p>
+          <div class="c-footer"><span class="ceu-pill">30 CEUs</span><a href="#contact" class="btn btn-outline btn-sm">Enquire</a></div>
+        </div>
+      </div>
+
+      <div class="course-card fi">
+        <div class="c-img"><img src="assets/images/courses/amls.jpg" alt="Advanced Medical Life Support"><span class="dur-badge">2 Days</span></div>
+        <div class="c-body">
+          <h3 class="c-title">Advanced Medical Life Support (AMLS)</h3>
+          <p class="c-desc">Recognition and management of acute medical emergencies for doctors. Advanced Medical Life Support Certificate.</p>
+          <div class="c-footer"><span class="ceu-pill">30 CEUs</span><a href="#contact" class="btn btn-outline btn-sm">Enquire</a></div>
+        </div>
+      </div>
+
+      <div class="course-card fi">
+        <div class="c-img"><img src="assets/images/courses/ecg.jpg" alt="Emergency ECG and Pharmacology"><span class="dur-badge">1 Day</span></div>
+        <div class="c-body">
+          <h3 class="c-title">Emergency ECG &amp; Pharmacology</h3>
+          <p class="c-desc">12-lead ECG interpretation, arrhythmia recognition and emergency pharmacology. HPCSA-approved CPD certificate.</p>
+          <div class="c-footer"><span class="ceu-pill">9 CEUs</span><a href="#contact" class="btn btn-outline btn-sm">Enquire</a></div>
+        </div>
+      </div>
+
+      <div class="course-card fi">
+        <div class="c-img"><img src="assets/images/courses/nrp.jpg" alt="Advanced Neonatal Life Support"><span class="dur-badge">1 Day</span></div>
+        <div class="c-body">
+          <h3 class="c-title">Advanced Neonatal Life Support (ANLS/NRP)</h3>
+          <p class="c-desc">AAP/AHA Neonatal Resuscitation Program. Resuscitation Council of SA and SA Paediatric Association Certificate.</p>
+          <div class="c-footer"><span class="ceu-pill">18 CEUs</span><a href="#contact" class="btn btn-outline btn-sm">Enquire</a></div>
+        </div>
+      </div>
+
+      <div class="course-card fi">
+        <div class="c-img"><div class="c-img-placeholder">🔄</div><span class="dur-badge">1 Day + Study</span></div>
+        <div class="c-body">
+          <h3 class="c-title">ACLS &amp; PALS Update Course</h3>
+          <p class="c-desc">Renewal course for expiring AHA ACLS or PALS certificates. Updated AHA provider certificate on successful completion.</p>
+          <div class="c-footer"><span class="ceu-pill">30 CEUs</span><a href="#contact" class="btn btn-outline btn-sm">Enquire</a></div>
+        </div>
+      </div>
+
+      <div class="course-card fi">
+        <div class="c-img"><img src="assets/images/courses/itls.jpg" alt="International Trauma Life Support"><span class="dur-badge">2 Days</span></div>
+        <div class="c-body">
+          <h3 class="c-title">International Trauma Life Support (ITLS)</h3>
+          <p class="c-desc">Systematic trauma assessment and management — doctors, nurses and EMS. ITLS International Certificate.</p>
+          <div class="c-footer"><span class="ceu-pill">23 CEUs</span><a href="#contact" class="btn btn-outline btn-sm">Enquire</a></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FACULTY -->
+<section id="faculty" class="grey">
+  <div class="container">
+    <div class="sec-hdr center fi">
+      <span class="label">Our Faculty</span>
+      <h2 class="sec-heading">Internationally Qualified Instructors</h2>
+      <p class="sec-sub">World leaders in emergency cardiovascular care</p>
+    </div>
+    <div class="faculty-grid">
+      <div class="fac-card fi">
+        <img class="fac-img" src="assets/images/faculty/prof-kloeck.jpg" alt="Professor Walter G J Kloeck, Medical Director">
+        <div class="fac-info">
+          <span class="fac-role">Medical Director</span>
+          <h3 class="fac-name">Prof Walter G J Kloeck</h3>
+          <p class="fac-quals">MB,BCh(Wits), DipPEC(SA), FCEM(SA), FERC(Belg), FAHA (USA)</p>
+          <p class="fac-bio">Co-author of 80 international publications with 3,750 citations in resuscitation science. A world leader in emergency cardiovascular care and a driving force behind life support training standards in South Africa and internationally.</p>
+        </div>
+      </div>
+      <div class="fac-card fi">
+        <img class="fac-img" src="assets/images/faculty/darren-ajoodha.jpg" alt="Darren Ajoodha, Lead Instructor">
+        <div class="fac-info">
+          <span class="fac-role">Lead Instructor</span>
+          <h3 class="fac-name">Darren Ajoodha</h3>
+          <p class="fac-quals">B.A. Psychology, Master's in Adult Education</p>
+          <p class="fac-bio">20 years of clinical experience as an Advanced Life Support Paramedic. Darren brings real-world emergency expertise into every classroom, creating a learning environment that is both rigorous and supportive.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACCREDITATION -->
+<section style="padding: 64px 0; border-top: 1px solid var(--grey-border); border-bottom: 1px solid var(--grey-border);">
+  <div class="container">
+    <div class="sec-hdr center fi">
+      <span class="label">Accreditation</span>
+      <h2 class="sec-heading">Internationally Accredited. Locally Trusted.</h2>
+    </div>
+    <div class="accred-logos fi">
+      <div class="acc-badge"><div class="acc-icon">❤️</div>American Heart Association</div>
+      <div class="acc-badge"><div class="acc-icon">👶</div>American Academy of Pediatrics</div>
+      <div class="acc-badge"><div class="acc-icon">🌍</div>ILCOR</div>
+      <div class="acc-badge"><div class="acc-icon">🇿🇦</div>HPCSA</div>
+      <div class="acc-badge"><div class="acc-icon">💊</div>Resuscitation Council of SA</div>
+      <div class="acc-badge"><div class="acc-icon">🏥</div>SA Paediatric Association</div>
+      <div class="acc-badge"><div class="acc-icon">🚑</div>ITLS International</div>
+    </div>
+    <p class="accred-postgrad fi"><strong>Postgraduate Entry:</strong> Our courses meet entry requirements for <strong>DipPEC(SA)</strong>, <strong>H Dip Emerg Med(SA)</strong> and <strong>FCEM(SA)</strong> postgraduate qualifications.</p>
+  </div>
+</section>
+
+<!-- COURSE DATES -->
+<section id="dates" class="grey">
+  <div class="container">
+    <div class="sec-hdr center fi">
+      <span class="label">Schedule</span>
+      <h2 class="sec-heading">Upcoming Course Dates</h2>
+      <p class="sec-sub">To register: email <a href="mailto:agrecia@resus.co.za" style="color:var(--blue);font-weight:600;">agrecia@resus.co.za</a> or call <a href="tel:+27114781874" style="color:var(--blue);font-weight:600;">+27 (0)11 478 1874</a></p>
+    </div>
+    <div class="dates-wrap fi">
+      <table class="dates-tbl">
+        <thead>
+          <tr><th>Date</th><th>Course</th><th>Duration</th><th>CEUs</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>14 Nov 2025</td><td>Basic Life Support</td><td>5 hours</td><td><span class="tbl-ceu">11</span></td></tr>
+          <tr><td>18–19 Nov 2025</td><td>Advanced Medical Life Support</td><td>2 days</td><td><span class="tbl-ceu">30</span></td></tr>
+          <tr><td>19 Nov 2025</td><td>ACLS Update</td><td>1 day + prep</td><td><span class="tbl-ceu">30</span></td></tr>
+          <tr><td>21 Nov 2025</td><td>ECG &amp; Pharmacology</td><td>1 day</td><td><span class="tbl-ceu">9</span></td></tr>
+          <tr><td>21 Nov 2025</td><td>PALS Update</td><td>1 day + prep</td><td><span class="tbl-ceu">30</span></td></tr>
+          <tr><td>25–26 Nov 2025</td><td>Paediatric Advanced Life Support</td><td>2 days</td><td><span class="tbl-ceu">30</span></td></tr>
+          <tr><td>27–28 Nov 2025</td><td>Paediatric Advanced Life Support</td><td>2 days</td><td><span class="tbl-ceu">30</span></td></tr>
+          <tr><td>29–30 Nov 2025</td><td>Advanced Medical Life Support</td><td>2 days</td><td><span class="tbl-ceu">30</span></td></tr>
+          <tr><td>1 Dec 2025</td><td>Basic Life Support</td><td>5 hours</td><td><span class="tbl-ceu">11</span></td></tr>
+          <tr><td>1–3 Dec 2025</td><td>Advanced Cardiovascular Life Support</td><td>2½ days</td><td><span class="tbl-ceu">30</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="dates-cta fi">
+      <a href="#contact" class="btn btn-red">Book Your Place</a>
+    </div>
+  </div>
+</section>
+
+<!-- ACCOMMODATION -->
+<section id="accommodation">
+  <div class="container">
+    <div class="sec-hdr center fi">
+      <span class="label">Accommodation</span>
+      <h2 class="sec-heading">Accommodation Near Our Venue</h2>
+      <p class="sec-sub">Our venue is at 72 Sophia Street, Fairland, Johannesburg. The following options are within easy reach:</p>
+    </div>
+    <div class="accom-grid">
+      <div class="accom-card fi">
+        <div class="accom-ico">🏡</div>
+        <div class="accom-name">Lavender Lane Cottage</div>
+        <div class="accom-addr">208 Johannes Street, Fairland</div>
+        <div class="accom-contact">Paige Williams: <a href="tel:0767412150">076 741 2150</a><br>Available on Airbnb</div>
+      </div>
+      <div class="accom-card fi">
+        <div class="accom-ico">🏨</div>
+        <div class="accom-name">Fairview on 14th</div>
+        <div class="accom-addr">Corner 14th Ave &amp; Davidson St, Fairland</div>
+        <div class="accom-contact"><a href="tel:0117507600">011 750 7600</a><br><a href="mailto:eres@lifehospitality.com">eres@lifehospitality.com</a></div>
+      </div>
+      <div class="accom-card fi">
+        <div class="accom-ico">🏠</div>
+        <div class="accom-name">Bezaleel Guesthouse</div>
+        <div class="accom-addr">69 Johannes St, Fairland</div>
+        <div class="accom-contact">Ine du Plessis: <a href="tel:0116787392">011 678 7392</a> / <a href="tel:0832356424">083 235 6424</a><br><a href="mailto:duppie1@mweb.co.za">duppie1@mweb.co.za</a></div>
+      </div>
+      <div class="accom-card fi">
+        <div class="accom-ico">👑</div>
+        <div class="accom-name">The Kings Lodge</div>
+        <div class="accom-addr">95 14th Ave, Northcliff</div>
+        <div class="accom-contact"><a href="tel:0114769654">011 476 9654</a> / <a href="tel:0604019509">060 401 9509</a><br><a href="mailto:info@thekingslodge.co.za">info@thekingslodge.co.za</a></div>
+      </div>
+      <div class="accom-card fi">
+        <div class="accom-ico">🌸</div>
+        <div class="accom-name">49 on Cherry B&amp;B</div>
+        <div class="accom-addr">49 Cherry Drive, Randpark</div>
+        <div class="accom-contact">Lynne &amp; Gary: <a href="tel:0117921136">011 792 1136</a> / <a href="tel:0874564157">087 456 4157</a><br><a href="mailto:lynne@49cherry.co.za">lynne@49cherry.co.za</a></div>
+      </div>
+      <div class="accom-card fi">
+        <div class="accom-ico">🌿</div>
+        <div class="accom-name">Fever Tree Suites</div>
+        <div class="accom-addr">68 Imbuia Street, Randburg</div>
+        <div class="accom-contact"><a href="tel:0732553524">073 255 3524</a><br>Available on Booking.com</div>
+      </div>
+      <div class="accom-card fi">
+        <div class="accom-ico">🟢</div>
+        <div class="accom-name">The Green Room</div>
+        <div class="accom-addr">Fairland</div>
+        <div class="accom-contact">Available on Airbnb</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="grey">
+  <div class="container">
+    <div class="sec-hdr fi">
+      <span class="label">Contact Us</span>
+      <h2 class="sec-heading">Get in Touch</h2>
+      <p class="sec-sub">Register for a course, request information, or ask any questions.</p>
+    </div>
+    <div class="contact-grid">
+      <div>
+        <div class="fi">
+          <div class="ci"><div class="ci-icon">📍</div><div><div class="ci-label">Address</div><div class="ci-val">72 Sophia Street, Fairland, Johannesburg</div></div></div>
+          <div class="ci"><div class="ci-icon">📞</div><div><div class="ci-label">Phone</div><div class="ci-val"><a href="tel:+27114781874">+27 (0)11 478 1874</a></div></div></div>
+          <div class="ci"><div class="ci-icon">📠</div><div><div class="ci-label">Fax</div><div class="ci-val">+27 (0)11 678 5087</div></div></div>
+          <div class="ci"><div class="ci-icon">✉️</div><div><div class="ci-label">General Enquiries</div><div class="ci-val"><a href="mailto:linda@resus.co.za">linda@resus.co.za</a></div></div></div>
+          <div class="ci"><div class="ci-icon">📅</div><div><div class="ci-label">Bookings &amp; Registrations</div><div class="ci-val"><a href="mailto:agrecia@resus.co.za">agrecia@resus.co.za</a></div></div></div>
+          <div class="ci"><div class="ci-icon">🕐</div><div><div class="ci-label">Office Hours</div><div class="ci-val">Mon – Fri: 8:00 – 17:30</div></div></div>
+        </div>
+        <div class="contact-form-box fi">
+          <h3>Send a Message</h3>
+          <div class="form-row">
+            <div class="fg"><label for="fname">Full Name</label><input type="text" id="fname" name="name" placeholder="Dr Jane Smith" autocomplete="name"></div>
+            <div class="fg"><label for="femail">Email Address</label><input type="email" id="femail" name="email" placeholder="jane@hospital.co.za" autocomplete="email"></div>
+          </div>
+          <div class="form-row">
+            <div class="fg"><label for="fphone">Phone Number</label><input type="tel" id="fphone" name="phone" placeholder="+27 xx xxx xxxx" autocomplete="tel"></div>
+            <div class="fg"><label for="fcountry">Country</label>
+              <select id="fcountry" name="country" autocomplete="country">
+                <option value="">Select country</option>
+                <option value="ZA" selected>South Africa</option>
+                <option value="ZW">Zimbabwe</option>
+                <option value="ZM">Zambia</option>
+                <option value="BW">Botswana</option>
+                <option value="NA">Namibia</option>
+                <option value="MZ">Mozambique</option>
+                <option value="OTHER">Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="fg"><label for="fmsg">Message</label><textarea id="fmsg" name="message" placeholder="I'd like to enquire about the ACLS course..."></textarea></div>
+          <button type="submit" class="btn btn-blue" style="width:100%;justify-content:center;">Send Message</button>
+        </div>
+      </div>
+      <div class="fi">
+        <div class="map-wrap">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3581.5!2d27.9620!3d-26.1390!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e9573c7be53a06b%3A0x0!2s72+Sophia+St%2C+Fairland%2C+Johannesburg%2C+2030!5e0!3m2!1sen!2sza!4v1620000000000"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Map to Academy of Advanced Life Support, 72 Sophia Street, Fairland"
+            aria-label="Google Map — 72 Sophia Street, Fairland, Johannesburg">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <img src="assets/images/AALS-Logo-2026.png" alt="Academy of Advanced Life Support">
+        <p class="foot-tag">Advanced and Basic Life Support courses in Gauteng for Healthcare Providers</p>
+        <div class="foot-fb">
+          <a href="https://www.facebook.com/Academy-of-Advanced-Life-Support-218735134818307/" target="_blank" rel="noopener noreferrer" aria-label="AALS Facebook page">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            Follow on Facebook
+          </a>
+        </div>
+      </div>
+      <div class="foot-col">
+        <h4>Quick Links</h4>
+        <ul class="foot-links">
+          <li><a href="#courses">Courses</a></li>
+          <li><a href="#faculty">Our Faculty</a></li>
+          <li><a href="#dates">Course Dates</a></li>
+          <li><a href="#accommodation">Accommodation</a></li>
+          <li><a href="#contact">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Office Hours</h4>
+        <p style="font-size:14px;color:rgba(255,255,255,.62);line-height:1.9;">Monday – Friday<br>8:00 – 17:30<br><br>Saturday – Sunday<br>Closed</p>
+      </div>
+      <div class="foot-col">
+        <h4>Contact</h4>
+        <div class="fci"><span>📍</span><span>72 Sophia Street, Fairland, Johannesburg</span></div>
+        <div class="fci"><span>📞</span><span><a href="tel:+27114781874">+27 (0)11 478 1874</a></span></div>
+        <div class="fci"><span>✉️</span><span><a href="mailto:linda@resus.co.za">linda@resus.co.za</a></span></div>
+        <div class="fci"><span>📅</span><span><a href="mailto:agrecia@resus.co.za">agrecia@resus.co.za</a> (bookings)</span></div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Academy of Advanced Life Support. All rights reserved.</span>
+      <span style="color:rgba(255,255,255,.35);font-size:12px;">72 Sophia Street, Fairland, Johannesburg</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Sticky header shadow
+  const hdr = document.getElementById('hdr');
+  window.addEventListener('scroll', () => hdr.classList.toggle('scrolled', window.scrollY > 8), { passive: true });
+
+  // Hamburger
+  const burger = document.getElementById('burger');
+  const mobNav = document.getElementById('mob-nav');
+  burger.addEventListener('click', () => {
+    const open = burger.classList.toggle('open');
+    mobNav.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', open);
+  });
+  mobNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    burger.classList.remove('open');
+    mobNav.classList.remove('open');
+    burger.setAttribute('aria-expanded', 'false');
+  }));
+
+  // Fade-in on scroll
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('on'), i * 55);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
+  document.querySelectorAll('.fi').forEach(el => obs.observe(el));
+</script>
+
+</body>
+</html>
