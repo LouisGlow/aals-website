@@ -1,13 +1,14 @@
-# System
-.DS_Store
+# OS / editor
 Thumbs.db
-
-# Editors
-.vscode/
+.DS_Store
+desktop.ini
+*.bak
 *.swp
+.vscode/
+.idea/
 
-# Node (for favicon scripts)
-node_modules/
+# Build artifacts / large source archives
+mp15yymt-images.zip
 
-# Zip sources
-images.zip
+# Duplicate image set not referenced by any HTML
+extracted-assets/
