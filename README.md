@@ -5,7 +5,7 @@ Static website for the Academy of Advanced Life Support (AALS) in Johannesburg.
 ## Contents
 
 - `index.html` — homepage
-- `accommodation.html`, `contact.html`, `course-dates.html`, `courses.html`, `educational-perspectives.html` — site pages
+- `contact.html`, `course-dates.html`, `courses.html`, `educational-perspectives.html` — site pages
 - `assets/` — CSS, JS, and images
 
 ## Deployment
