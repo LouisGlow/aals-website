@@ -102,13 +102,15 @@
               <select id="course" name="course" required>
                 <option value="">Select a course&hellip;</option>
                 <option value="bls">BLS Provider Course</option>
-                <option value="acls">Advanced Cardiovascular Life Support Provider (ACLS)</option>
+                <option value="acls">Advanced Cardiovascular Life Support (ACLS)</option>
                 <option value="acls-ep">ACLS for Experienced Providers (ACLS-EP)</option>
-                <option value="pals">Paediatric Advanced Life Support Provider (PALS)</option>
-                <option value="amls">Advanced Medical Life Support for Doctors (AMLS)</option>
+                <option value="acls-refresher">ACLS Refresher Course</option>
+                <option value="pals">Paediatric Advanced Life Support (PALS)</option>
+                <option value="pals-ep">PALS Expanded Programme</option>
+                <option value="pals-refresher">PALS Refresher Course</option>
+                <option value="amls">Advanced Medical Life Support (AMLS)</option>
                 <option value="ecg">ECG Recognition and Interpretation</option>
-                <option value="nrp">Advanced Neonatal Life Support Course (ANLS / NRP)</option>
-                <option value="update">ACLS and PALS Update Course</option>
+                <option value="nrp">Advanced Neonatal Life Support (NRP)</option>
                 <option value="itls">International Trauma Life Support (ITLS)</option>
               </select>
             </div>
@@ -116,16 +118,146 @@
               <label for="course_date">Preferred date<span class="req">*</span></label>
               <select id="course_date" name="course_date" required>
                 <option value="">Select a date&hellip;</option>
-                <option value="2025-11-14">14 Nov 2025 &mdash; BLS Provider</option>
-                <option value="2025-11-18">18&ndash;19 Nov 2025 &mdash; AMLS</option>
-                <option value="2025-11-19">19 Nov 2025 &mdash; ACLS Update</option>
-                <option value="2025-11-21-ecg">21 Nov 2025 &mdash; ECG Recognition</option>
-                <option value="2025-11-21-pals">21 Nov 2025 &mdash; PALS Update</option>
-                <option value="2025-11-25">25&ndash;26 Nov 2025 &mdash; PALS</option>
-                <option value="2025-11-27">27&ndash;28 Nov 2025 &mdash; PALS</option>
-                <option value="2025-11-29">29&ndash;30 Nov 2025 &mdash; AMLS</option>
-                <option value="2025-12-01-bls">1 Dec 2025 &mdash; BLS Provider</option>
-                <option value="2025-12-01-acls">1&ndash;3 Dec 2025 &mdash; ACLS</option>
+
+                <optgroup label="July 2026">
+                  <option value="2026-06-29-bls">29 Jun &mdash; BLS Provider</option>
+                  <option value="2026-06-29-acls">29 Jun &ndash; 1 Jul &mdash; ACLS</option>
+                  <option value="2026-07-03-bls">3 Jul &mdash; BLS Provider</option>
+                  <option value="2026-07-03-acls">3&ndash;5 Jul &mdash; ACLS</option>
+                  <option value="2026-07-06-bls">6 Jul &mdash; BLS Provider</option>
+                  <option value="2026-07-06-acls">6&ndash;8 Jul &mdash; ACLS</option>
+                  <option value="2026-07-09-acls-refresher">9 Jul &mdash; ACLS Refresher</option>
+                  <option value="2026-07-10-bls">10 Jul &mdash; BLS Provider</option>
+                  <option value="2026-07-10-acls">10&ndash;12 Jul &mdash; ACLS</option>
+                  <option value="2026-07-13-acls-ep">13&ndash;14 Jul &mdash; ACLS-EP</option>
+                  <option value="2026-07-15-ecg">15 Jul &mdash; ECG Recognition</option>
+                  <option value="2026-07-16-itls">16&ndash;17 Jul &mdash; ITLS</option>
+                  <option value="2026-07-16-amls">16&ndash;17 Jul &mdash; AMLS</option>
+                  <option value="2026-07-20-bls">20 Jul &mdash; BLS Provider</option>
+                  <option value="2026-07-21-pals">21&ndash;22 Jul &mdash; PALS</option>
+                  <option value="2026-07-23-pals">23&ndash;24 Jul &mdash; PALS</option>
+                  <option value="2026-07-25-pals">25&ndash;26 Jul &mdash; PALS</option>
+                  <option value="2026-07-27-nrp">27 Jul &mdash; NRP</option>
+                  <option value="2026-07-27-pals-refresher">27 Jul &mdash; PALS Refresher</option>
+                  <option value="2026-07-28-nrp">28 Jul &mdash; NRP</option>
+                  <option value="2026-07-28-acls-refresher">28 Jul &mdash; ACLS Refresher</option>
+                  <option value="2026-07-30-itls">30&ndash;31 Jul &mdash; ITLS</option>
+                  <option value="2026-07-30-amls">30&ndash;31 Jul &mdash; AMLS</option>
+                </optgroup>
+
+                <optgroup label="August 2026">
+                  <option value="2026-08-03-bls">3 Aug &mdash; BLS Provider</option>
+                  <option value="2026-08-03-acls">3&ndash;5 Aug &mdash; ACLS</option>
+                  <option value="2026-08-07-bls">7 Aug &mdash; BLS Provider</option>
+                  <option value="2026-08-07-acls">7&ndash;9 Aug &mdash; ACLS</option>
+                  <option value="2026-08-10-bls">10 Aug &mdash; BLS Provider</option>
+                  <option value="2026-08-10-acls">10&ndash;12 Aug &mdash; ACLS</option>
+                  <option value="2026-08-13-acls-refresher">13 Aug &mdash; ACLS Refresher</option>
+                  <option value="2026-08-14-bls">14 Aug &mdash; BLS Provider</option>
+                  <option value="2026-08-14-acls">14&ndash;16 Aug &mdash; ACLS</option>
+                  <option value="2026-08-17-bls">17 Aug &mdash; BLS Provider</option>
+                  <option value="2026-08-18-pals">18&ndash;19 Aug &mdash; PALS</option>
+                  <option value="2026-08-20-pals">20&ndash;21 Aug &mdash; PALS</option>
+                  <option value="2026-08-22-pals">22&ndash;23 Aug &mdash; PALS</option>
+                  <option value="2026-08-24-nrp">24 Aug &mdash; NRP</option>
+                  <option value="2026-08-24-pals-refresher">24 Aug &mdash; PALS Refresher</option>
+                  <option value="2026-08-25-nrp">25 Aug &mdash; NRP</option>
+                  <option value="2026-08-25-pals-refresher">25 Aug &mdash; PALS Refresher</option>
+                  <option value="2026-08-27-acls-refresher">27 Aug &mdash; ACLS Refresher</option>
+                  <option value="2026-08-27-amls">27&ndash;28 Aug &mdash; AMLS</option>
+                  <option value="2026-08-28-acls-refresher">28 Aug &mdash; ACLS Refresher</option>
+                </optgroup>
+
+                <optgroup label="September 2026">
+                  <option value="2026-08-31-bls">31 Aug &mdash; BLS Provider</option>
+                  <option value="2026-08-31-acls">31 Aug &ndash; 2 Sep &mdash; ACLS</option>
+                  <option value="2026-09-04-bls">4 Sep &mdash; BLS Provider</option>
+                  <option value="2026-09-04-acls">4&ndash;6 Sep &mdash; ACLS</option>
+                  <option value="2026-09-07-bls">7 Sep &mdash; BLS Provider</option>
+                  <option value="2026-09-07-acls">7&ndash;9 Sep &mdash; ACLS</option>
+                  <option value="2026-09-10-acls-refresher">10 Sep &mdash; ACLS Refresher</option>
+                  <option value="2026-09-10-ecg">10 Sep &mdash; ECG Recognition</option>
+                  <option value="2026-09-12-amls">12&ndash;13 Sep &mdash; AMLS</option>
+                  <option value="2026-09-14-bls">14 Sep &mdash; BLS Provider</option>
+                  <option value="2026-09-15-pals">15&ndash;16 Sep &mdash; PALS</option>
+                  <option value="2026-09-17-pals">17&ndash;18 Sep &mdash; PALS</option>
+                  <option value="2026-09-19-pals">19&ndash;20 Sep &mdash; PALS</option>
+                  <option value="2026-09-21-nrp">21 Sep &mdash; NRP</option>
+                  <option value="2026-09-21-itls">21&ndash;22 Sep &mdash; ITLS</option>
+                  <option value="2026-09-22-nrp">22 Sep &mdash; NRP</option>
+                  <option value="2026-09-23-pals-refresher">23 Sep &mdash; PALS Refresher</option>
+                  <option value="2026-09-24-acls-ep">24&ndash;25 Sep &mdash; ACLS-EP</option>
+                  <option value="2026-09-25-acls-refresher">25 Sep &mdash; ACLS Refresher</option>
+                  <option value="2026-09-28-bls">28 Sep &mdash; BLS Provider</option>
+                  <option value="2026-09-28-acls">28&ndash;30 Sep &mdash; ACLS</option>
+                </optgroup>
+
+                <optgroup label="October 2026">
+                  <option value="2026-10-02-bls">2 Oct &mdash; BLS Provider</option>
+                  <option value="2026-10-02-acls">2&ndash;4 Oct &mdash; ACLS</option>
+                  <option value="2026-10-05-bls">5 Oct &mdash; BLS Provider</option>
+                  <option value="2026-10-05-acls">5&ndash;7 Oct &mdash; ACLS</option>
+                  <option value="2026-10-08-acls-refresher">8 Oct &mdash; ACLS Refresher</option>
+                  <option value="2026-10-09-bls">9 Oct &mdash; BLS Provider</option>
+                  <option value="2026-10-09-acls">9&ndash;11 Oct &mdash; ACLS</option>
+                  <option value="2026-10-12-itls">12&ndash;13 Oct &mdash; ITLS</option>
+                  <option value="2026-10-12-amls">12&ndash;13 Oct &mdash; AMLS</option>
+                  <option value="2026-10-15-itls">15&ndash;16 Oct &mdash; ITLS</option>
+                  <option value="2026-10-15-amls">15&ndash;16 Oct &mdash; AMLS</option>
+                  <option value="2026-10-19-bls">19 Oct &mdash; BLS Provider</option>
+                  <option value="2026-10-20-pals">20&ndash;21 Oct &mdash; PALS</option>
+                  <option value="2026-10-22-pals-ep">22&ndash;23 Oct &mdash; PALS Expanded</option>
+                  <option value="2026-10-24-pals">24&ndash;25 Oct &mdash; PALS</option>
+                  <option value="2026-10-26-nrp">26 Oct &mdash; NRP</option>
+                  <option value="2026-10-26-pals-refresher">26 Oct &mdash; PALS Refresher</option>
+                  <option value="2026-10-27-nrp">27 Oct &mdash; NRP</option>
+                  <option value="2026-10-27-acls-refresher">27 Oct &mdash; ACLS Refresher</option>
+                  <option value="2026-10-29-amls">29&ndash;30 Oct &mdash; AMLS</option>
+                  <option value="2026-10-29-itls">29&ndash;30 Oct &mdash; ITLS</option>
+                </optgroup>
+
+                <optgroup label="November 2026">
+                  <option value="2026-11-02-bls">2 Nov &mdash; BLS Provider</option>
+                  <option value="2026-11-02-acls">2&ndash;4 Nov &mdash; ACLS</option>
+                  <option value="2026-11-06-bls">6 Nov &mdash; BLS Provider</option>
+                  <option value="2026-11-06-acls">6&ndash;8 Nov &mdash; ACLS</option>
+                  <option value="2026-11-09-bls">9 Nov &mdash; BLS Provider</option>
+                  <option value="2026-11-09-acls">9&ndash;11 Nov &mdash; ACLS</option>
+                  <option value="2026-11-12-acls-refresher">12 Nov &mdash; ACLS Refresher</option>
+                  <option value="2026-11-13-bls">13 Nov &mdash; BLS Provider</option>
+                  <option value="2026-11-13-acls">13&ndash;15 Nov &mdash; ACLS</option>
+                  <option value="2026-11-16-bls">16 Nov &mdash; BLS Provider</option>
+                  <option value="2026-11-17-pals">17&ndash;18 Nov &mdash; PALS</option>
+                  <option value="2026-11-17-pals-refresher">17 Nov &mdash; PALS Refresher</option>
+                  <option value="2026-11-19-pals">19&ndash;20 Nov &mdash; PALS</option>
+                  <option value="2026-11-21-pals">21&ndash;22 Nov &mdash; PALS</option>
+                  <option value="2026-11-23-pals-refresher">23 Nov &mdash; PALS Refresher</option>
+                  <option value="2026-11-23-nrp">23 Nov &mdash; NRP</option>
+                  <option value="2026-11-24-acls-refresher">24 Nov &mdash; ACLS Refresher</option>
+                  <option value="2026-11-24-nrp">24 Nov &mdash; NRP</option>
+                  <option value="2026-11-25-acls-refresher">25 Nov &mdash; ACLS Refresher</option>
+                  <option value="2026-11-26-amls">26&ndash;27 Nov &mdash; AMLS</option>
+                  <option value="2026-11-26-itls">26&ndash;27 Nov &mdash; ITLS</option>
+                </optgroup>
+
+                <optgroup label="December 2026">
+                  <option value="2026-11-30-bls">30 Nov &mdash; BLS Provider</option>
+                  <option value="2026-11-30-acls">30 Nov &ndash; 2 Dec &mdash; ACLS</option>
+                  <option value="2026-12-03-acls-refresher">3 Dec &mdash; ACLS Refresher</option>
+                  <option value="2026-12-04-bls">4 Dec &mdash; BLS Provider</option>
+                  <option value="2026-12-04-acls">4&ndash;6 Dec &mdash; ACLS</option>
+                  <option value="2026-12-07-bls">7 Dec &mdash; BLS Provider</option>
+                  <option value="2026-12-07-acls">7&ndash;9 Dec &mdash; ACLS</option>
+                  <option value="2026-12-10-acls-refresher">10 Dec &mdash; ACLS Refresher</option>
+                  <option value="2026-12-11-bls">11 Dec &mdash; BLS Provider</option>
+                  <option value="2026-12-11-acls">11&ndash;13 Dec &mdash; ACLS</option>
+                  <option value="2026-12-14-bls">14 Dec &mdash; BLS Provider</option>
+                  <option value="2026-12-15-pals">15&ndash;16 Dec &mdash; PALS</option>
+                  <option value="2026-12-17-pals">17&ndash;18 Dec &mdash; PALS</option>
+                  <option value="2026-12-19-pals">19&ndash;20 Dec &mdash; PALS</option>
+                  <option value="2026-12-21-amls">21&ndash;22 Dec &mdash; AMLS</option>
+                </optgroup>
+
                 <option value="other">Other date &mdash; please contact me to discuss</option>
               </select>
             </div>

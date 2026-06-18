@@ -482,6 +482,15 @@ a:hover { text-decoration: underline; }
   font-weight: 600; color: var(--navy); white-space: nowrap;
   font-family: var(--mono); font-size: 12.5px;
 }
+.dates-table tbody tr.dates-month-row { background: #f8fafc; }
+.dates-table tbody tr.dates-month-row:hover { background: #f8fafc; }
+.dates-table tbody tr.dates-month-row td {
+  font-family: var(--font);
+  font-size: 12px; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--red);
+  padding: 10px 18px;
+  border-bottom: 1px solid var(--border);
+}
 .ceu-chip {
   display: inline-block; padding: 2px 8px;
   background: rgba(196,2,51,.07); color: var(--red);
