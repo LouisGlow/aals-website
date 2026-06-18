@@ -18,11 +18,13 @@ if (burger && mobNav) {
 }
 
 // Active nav link from pathname
+// Cloudflare Pages serves both /courses and /courses.html, so we compare
+// the basename with the .html stripped from both the URL and the link href.
 (function () {
-  const path = location.pathname.split('/').pop() || 'index.html';
+  const norm = s => (s || '').replace(/^\/+|\/+$/g, '').replace(/\.html$/i, '').toLowerCase() || 'index';
+  const path = norm(location.pathname.split('/').pop());
   document.querySelectorAll('.nav-links a, .mob-nav a').forEach(a => {
-    const href = a.getAttribute('href') || '';
-    const isActive = href === path || (path === 'index.html' && href === 'index.html');
+    const isActive = norm(a.getAttribute('href')) === path;
     a.classList.toggle('active', isActive);
   });
 }());

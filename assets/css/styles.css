@@ -94,14 +94,26 @@ a:hover { text-decoration: underline; }
 .nav-logo-text { display: none; }
 .nav-links { display: flex; list-style: none; gap: 2px; align-items: center; }
 .nav-links a {
+  position: relative;
   display: block; padding: 7px 12px; font-size: 14px; font-weight: 500;
   color: var(--muted); border-radius: var(--r); text-decoration: none;
   transition: color .15s, background .15s; white-space: nowrap;
 }
-.nav-links a:hover { color: var(--fg); background: var(--bg); }
-.nav-links a.active { color: var(--navy); font-weight: 700; }
+.nav-links a:hover { color: var(--fg); background: #f1f5f9; }
+.nav-links a.active { color: var(--blue); font-weight: 700; }
+.nav-links a.active::after {
+  content: '';
+  position: absolute;
+  left: 12px; right: 12px;
+  bottom: -1px;
+  height: 2px;
+  background: var(--red);
+  border-radius: 1px;
+}
 .nav-links a.nav-cta { background: var(--cobalt); color: #fff; padding: 7px 16px; margin-left: 4px; }
-.nav-links a.nav-cta:hover { background: var(--cobalt-h); }
+.nav-links a.nav-cta:hover { background: var(--cobalt-h); color: #fff; }
+.nav-links a.nav-cta.active { background: var(--red-h); color: #fff; box-shadow: inset 0 0 0 2px rgba(255,255,255,.25); }
+.nav-links a.nav-cta.active::after { display: none; }
 .burger {
   display: none; flex-direction: column; justify-content: center;
   gap: 5px; width: 36px; height: 36px; background: none;
@@ -122,8 +134,13 @@ a:hover { text-decoration: underline; }
   color: var(--muted); border-radius: var(--r); text-decoration: none;
   transition: color .15s, background .15s;
 }
-.mob-nav a:hover { color: var(--fg); background: var(--bg); }
-.mob-nav a.active { color: var(--navy); font-weight: 700; }
+.mob-nav a:hover { color: var(--fg); background: #f1f5f9; }
+.mob-nav a.active {
+  color: var(--blue); font-weight: 700;
+  background: rgba(196,2,51,.06);
+  border-left: 3px solid var(--red);
+  padding-left: 9px;
+}
 
 /* ----------------------------------------------------------------
    BUTTONS
