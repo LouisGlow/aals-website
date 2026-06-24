@@ -12,3 +12,6 @@ mp15yymt-images.zip
 
 # Duplicate image set not referenced by any HTML
 extracted-assets/
+
+# Secrets — Resend API key etc. Never commit.
+secrets.php
