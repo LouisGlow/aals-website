@@ -31,18 +31,18 @@ if (burger && mobNav) {
 
 // -------------------------------------------------------------
 // REGISTRATION FORM
-//   - Pre-fill course + date from query params (?course=acls&date=2026-07-10-acls)
-//   - On submit: prevent default, hide form, reveal inline success state.
-//   - TODO: wire to a real backend. Replace the body of `handleSubmit`
-//     with a fetch() to a Cloudflare Pages Function (or Formspree/etc.)
-//     that emails the form data to agrecia@resus.co.za. The success-state
-//     UI swap stays the same.
+//   - Pre-fill course + date from query params
+//     (?course=acls&date=2026-07-10-acls)
+//   - On submit: POST to register.php (PHP mail handler on cPanel),
+//     swap the form for the inline success state, or show an error
+//     and re-enable submit if the server rejects.
 // -------------------------------------------------------------
 (function () {
   const form = document.getElementById('reg-form');
   if (!form) return;
   const successEl = document.getElementById('reg-success');
   const submitBtn = document.getElementById('reg-submit');
+  const submitLabel = submitBtn ? submitBtn.textContent : 'Submit Registration';
 
   // Pre-fill from URL query params
   const params = new URLSearchParams(location.search);
@@ -61,27 +61,50 @@ if (burger && mobNav) {
     }
   }
 
-  function handleSubmit(e) {
+  function showError(msg) {
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = submitLabel;
+    }
+    alert(
+      "Sorry, your registration couldn't be sent right now.\n\n" +
+      (msg ? msg + "\n\n" : "") +
+      "Please try again, or email agrecia@resus.co.za directly with your details."
+    );
+  }
+
+  async function handleSubmit(e) {
     e.preventDefault();
     if (!form.checkValidity()) {
       form.reportValidity();
       return;
     }
-    // --- BACKEND STUB ---
-    // Currently no backend is wired. When a real backend is added, replace this
-    // block with a fetch() call. Until then, just reveal the success state so
-    // staff can preview the flow end-to-end.
     if (submitBtn) {
       submitBtn.disabled = true;
       submitBtn.textContent = 'Submitting…';
     }
-    setTimeout(() => {
+
+    try {
+      const res = await fetch('register.php', {
+        method: 'POST',
+        body: new FormData(form),
+      });
+      let data = null;
+      try { data = await res.json(); } catch (_) { /* ignore parse errors */ }
+
+      if (!res.ok || !data || !data.ok) {
+        showError(data && data.error ? data.error : 'HTTP ' + res.status);
+        return;
+      }
+
       form.hidden = true;
       if (successEl) {
         successEl.hidden = false;
         successEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
-    }, 400);
+    } catch (err) {
+      showError(err && err.message ? err.message : 'Network error');
+    }
   }
 
   form.addEventListener('submit', handleSubmit);
