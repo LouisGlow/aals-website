@@ -3,12 +3,15 @@
  * AALS course registration handler.
  *
  *   Receives the POST from register.html, validates + sanitises every field,
- *   optionally stores an uploaded BLS prerequisite certificate in a private
- *   directory above the web root, emails the registration to Agrecia
- *   (with bookings@ BCC for an audit copy on this cPanel server), and sends
- *   a confirmation email back to the student.
+ *   and emails the registration to Agrecia. If a BLS prerequisite cert was
+ *   uploaded, it is attached directly to the email (so Agrecia doesn't need
+ *   cPanel access — everything is in her Gmail inbox).
  *
- *   Returns JSON: { ok: bool, error?: string, cert_saved?: bool }
+ *   bookings@advancedlifesupport.co.za is BCC'd so a copy lands on this cPanel
+ *   server as an audit log. The student gets an auto-confirmation reply from
+ *   no-reply@advancedlifesupport.co.za.
+ *
+ *   Returns JSON: { ok: bool, error?: string }
  *
  *   Uses PHP's built-in mail() because this cPanel server is its own mail
  *   exchanger — SPF + DKIM are already in place for advancedlifesupport.co.za,
@@ -16,7 +19,7 @@
  */
 
 // -----------------------------------------------------------------------------
-// CONFIG  (change values here if email addresses or paths ever move)
+// CONFIG  (change values here if email addresses ever move)
 // -----------------------------------------------------------------------------
 const TO_EMAIL    = 'agrecia@resus.co.za';
 const BCC_EMAIL   = 'bookings@advancedlifesupport.co.za';
@@ -25,7 +28,6 @@ const FROM_NAME   = 'AALS Registration';
 const REPLY_HINT  = 'agrecia@resus.co.za';
 const SITE_NAME   = 'Academy of Advanced Life Support';
 
-const UPLOAD_DIR  = __DIR__ . '/../aals_uploads/';        // above public_html
 const UPLOAD_MAX  = 10 * 1024 * 1024;                     // 10 MB
 const UPLOAD_EXT  = ['pdf', 'png', 'jpg', 'jpeg'];
 
@@ -108,8 +110,12 @@ $full_name    = trim("$first_name $last_name");
 
 // -----------------------------------------------------------------------------
 // HANDLE OPTIONAL FILE UPLOAD (BLS prerequisite certificate)
+//   Read into memory so we can attach to the outgoing email — no server-side
+//   storage required (Agrecia has no cPanel access).
 // -----------------------------------------------------------------------------
-$saved_cert_name = '';
+$attach_bytes    = null;
+$attach_filename = '';
+$attach_mime     = 'application/octet-stream';
 
 if (isset($_FILES['prereq_cert_upload']) && $_FILES['prereq_cert_upload']['error'] === UPLOAD_ERR_OK) {
   $f = $_FILES['prereq_cert_upload'];
@@ -121,29 +127,33 @@ if (isset($_FILES['prereq_cert_upload']) && $_FILES['prereq_cert_upload']['error
   if (!in_array($ext, UPLOAD_EXT, true)) {
     bail(415, 'File type not allowed. PDF, JPG or PNG only.');
   }
-  if (!is_dir(UPLOAD_DIR)) {
-    @mkdir(UPLOAD_DIR, 0700, true);
-  }
-  if (!is_dir(UPLOAD_DIR) || !is_writable(UPLOAD_DIR)) {
-    bail(500, 'Server cannot store the uploaded file. Please email it to agrecia@resus.co.za instead.');
+
+  $attach_bytes = file_get_contents($f['tmp_name']);
+  if ($attach_bytes === false) {
+    bail(500, 'Could not read the uploaded file. Please try again.');
   }
 
-  $stamp = date('Ymd-His');
-  $hash  = bin2hex(random_bytes(4));
-  $safe  = preg_replace('/[^a-z0-9-]/', '', strtolower("{$first_name}-{$last_name}"));
-  if ($safe === '') $safe = 'cert';
-  $saved_cert_name = "{$stamp}_{$safe}_{$hash}.{$ext}";
+  // Give the attachment a clean, predictable filename for Agrecia's inbox.
+  $safe_last = preg_replace('/[^a-zA-Z0-9-]/', '', $last_name) ?: 'student';
+  $attach_filename = 'BLScert-' . $safe_last . '-' . date('Ymd') . '.' . $ext;
 
-  if (!move_uploaded_file($f['tmp_name'], UPLOAD_DIR . $saved_cert_name)) {
-    $saved_cert_name = '';
-    // Don't fail the whole registration — record the cert was missing.
+  if (function_exists('mime_content_type')) {
+    $detected = @mime_content_type($f['tmp_name']);
+    if ($detected) $attach_mime = $detected;
+  } else {
+    $attach_mime = match ($ext) {
+      'pdf'         => 'application/pdf',
+      'png'         => 'image/png',
+      'jpg', 'jpeg' => 'image/jpeg',
+      default       => 'application/octet-stream',
+    };
   }
 } elseif (isset($_FILES['prereq_cert_upload']) && $_FILES['prereq_cert_upload']['error'] !== UPLOAD_ERR_NO_FILE) {
   bail(400, 'There was a problem with the uploaded file. Please try again or email it directly.');
 }
 
 // -----------------------------------------------------------------------------
-// COMPOSE EMAIL TO AGRECIA  (BCC bookings@ for audit copy)
+// COMPOSE EMAIL BODY (text)
 // -----------------------------------------------------------------------------
 $now_sa = (new DateTime('now', new DateTimeZone('Africa/Johannesburg')))->format('Y-m-d H:i T');
 
@@ -164,15 +174,12 @@ $body .= "Email       : $email\n";
 $body .= "Phone       : $phone\n";
 if ($address)  $body .= "Address     :\n  " . str_replace("\n", "\n  ", $address) . "\n";
 
-if ($prereq_cert_num || $prereq_cert_exp || $saved_cert_name) {
+if ($prereq_cert_num || $prereq_cert_exp || $attach_bytes !== null) {
   $body .= "\nPREREQUISITE CERTIFICATE\n";
   if ($prereq_cert_num) $body .= "Cert number : $prereq_cert_num\n";
   if ($prereq_cert_exp) $body .= "Cert expiry : $prereq_cert_exp\n";
-  if ($saved_cert_name) {
-    $body .= "Cert upload : YES — saved on the server\n";
-    $body .= "Filename    : $saved_cert_name\n";
-    $body .= "Location    : aals_uploads/ (one level above public_html)\n";
-    $body .= "Retrieval   : cPanel File Manager → Home → aals_uploads/\n";
+  if ($attach_bytes !== null) {
+    $body .= "Cert upload : ATTACHED to this email ($attach_filename)\n";
   }
 }
 
@@ -188,17 +195,44 @@ $body .= "Reply directly to this email — Reply-To is set to the student ($emai
 
 $subject = safeHeader("AALS Registration — $course_label — $full_name");
 
+// -----------------------------------------------------------------------------
+// BUILD MIME MESSAGE (multipart if there's an attachment)
+// -----------------------------------------------------------------------------
 $headers  = "From: " . FROM_NAME . " <" . FROM_EMAIL . ">\r\n";
 $headers .= "Reply-To: " . safeHeader($email) . "\r\n";
 $headers .= "Bcc: " . BCC_EMAIL . "\r\n";
 $headers .= "MIME-Version: 1.0\r\n";
-$headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
 $headers .= "X-Mailer: AALS-Site/1.0\r\n";
 
-$sent_to_office = @mail(TO_EMAIL, $subject, $body, $headers, '-f' . FROM_EMAIL);
+if ($attach_bytes !== null) {
+  $boundary  = '=_' . bin2hex(random_bytes(16));
+  $headers  .= "Content-Type: multipart/mixed; boundary=\"$boundary\"\r\n";
+
+  $message  = "This is a multi-part message in MIME format.\r\n\r\n";
+
+  // Part 1: text body
+  $message .= "--$boundary\r\n";
+  $message .= "Content-Type: text/plain; charset=UTF-8\r\n";
+  $message .= "Content-Transfer-Encoding: 8bit\r\n\r\n";
+  $message .= $body . "\r\n\r\n";
+
+  // Part 2: file attachment
+  $message .= "--$boundary\r\n";
+  $message .= "Content-Type: $attach_mime; name=\"$attach_filename\"\r\n";
+  $message .= "Content-Transfer-Encoding: base64\r\n";
+  $message .= "Content-Disposition: attachment; filename=\"$attach_filename\"\r\n\r\n";
+  $message .= chunk_split(base64_encode($attach_bytes)) . "\r\n";
+
+  $message .= "--$boundary--\r\n";
+} else {
+  $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
+  $message  = $body;
+}
+
+$sent_to_office = @mail(TO_EMAIL, $subject, $message, $headers, '-f' . FROM_EMAIL);
 
 // -----------------------------------------------------------------------------
-// COMPOSE CONFIRMATION EMAIL TO STUDENT
+// COMPOSE CONFIRMATION EMAIL TO STUDENT  (text only, no attachment)
 // -----------------------------------------------------------------------------
 $conf_body  = "Hi $first_name,\n\n";
 $conf_body .= "Thank you for your registration with the Academy of Advanced Life Support.\n\n";
@@ -227,9 +261,8 @@ $conf_headers .= "X-Mailer: AALS-Site/1.0\r\n";
 // -----------------------------------------------------------------------------
 header('Content-Type: application/json');
 echo json_encode([
-  'ok'         => (bool)$sent_to_office,
-  'cert_saved' => $saved_cert_name !== '',
-  'error'      => $sent_to_office
-                  ? null
-                  : 'Could not send notification email. Please email agrecia@resus.co.za directly.',
+  'ok'    => (bool)$sent_to_office,
+  'error' => $sent_to_office
+             ? null
+             : 'Could not send notification email. Please email agrecia@resus.co.za directly.',
 ]);
