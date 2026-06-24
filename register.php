@@ -1,6 +1,6 @@
 <?php
 /**
- * AALS course registration handler.
+ * AALS course registration handler.  PHP 7.0+ compatible.
  *
  *   Receives the POST from register.html, validates + sanitises every field,
  *   and emails the registration to Agrecia. If a BLS prerequisite cert was
@@ -17,6 +17,27 @@
  *   exchanger — SPF + DKIM are already in place for advancedlifesupport.co.za,
  *   so outbound from no-reply@ has the right authentication.
  */
+
+// Surface any error in a usable way: never echo HTML errors (would break the
+// JSON parser on the client), but DO write everything to PHP's error log so
+// it shows up in cPanel "Errors".
+ini_set('display_errors', '0');
+error_reporting(E_ALL);
+
+set_error_handler(function ($severity, $message, $file, $line) {
+  error_log("AALS register.php [$severity] $message in $file:$line");
+  return false; // let PHP's default handler also run
+});
+
+set_exception_handler(function ($e) {
+  error_log("AALS register.php exception: " . $e->getMessage() . " in " . $e->getFile() . ":" . $e->getLine());
+  if (!headers_sent()) {
+    http_response_code(500);
+    header('Content-Type: application/json');
+  }
+  echo json_encode(['ok' => false, 'error' => 'Server error. Please email agrecia@resus.co.za directly.']);
+  exit;
+});
 
 // -----------------------------------------------------------------------------
 // CONFIG  (change values here if email addresses ever move)
@@ -140,12 +161,13 @@ if (isset($_FILES['prereq_cert_upload']) && $_FILES['prereq_cert_upload']['error
     $detected = @mime_content_type($f['tmp_name']);
     if ($detected) $attach_mime = $detected;
   } else {
-    $attach_mime = match ($ext) {
-      'pdf'         => 'application/pdf',
-      'png'         => 'image/png',
-      'jpg', 'jpeg' => 'image/jpeg',
-      default       => 'application/octet-stream',
-    };
+    switch ($ext) {
+      case 'pdf':  $attach_mime = 'application/pdf'; break;
+      case 'png':  $attach_mime = 'image/png';       break;
+      case 'jpg':
+      case 'jpeg': $attach_mime = 'image/jpeg';      break;
+      default:     $attach_mime = 'application/octet-stream';
+    }
   }
 } elseif (isset($_FILES['prereq_cert_upload']) && $_FILES['prereq_cert_upload']['error'] !== UPLOAD_ERR_NO_FILE) {
   bail(400, 'There was a problem with the uploaded file. Please try again or email it directly.');
