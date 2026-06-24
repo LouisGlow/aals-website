@@ -22,7 +22,6 @@
 // CONFIG  (change values here if email addresses ever move)
 // -----------------------------------------------------------------------------
 const TO_EMAIL    = 'agrecia@resus.co.za';
-const BCC_EMAIL   = 'bookings@advancedlifesupport.co.za';
 const FROM_EMAIL  = 'no-reply@advancedlifesupport.co.za';
 const FROM_NAME   = 'AALS Registration';
 const REPLY_HINT  = 'agrecia@resus.co.za';
@@ -200,7 +199,6 @@ $subject = safeHeader("AALS Registration — $course_label — $full_name");
 // -----------------------------------------------------------------------------
 $headers  = "From: " . FROM_NAME . " <" . FROM_EMAIL . ">\r\n";
 $headers .= "Reply-To: " . safeHeader($email) . "\r\n";
-$headers .= "Bcc: " . BCC_EMAIL . "\r\n";
 $headers .= "MIME-Version: 1.0\r\n";
 $headers .= "X-Mailer: AALS-Site/1.0\r\n";
 
