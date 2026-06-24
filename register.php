@@ -42,7 +42,9 @@ set_exception_handler(function ($e) {
 // -----------------------------------------------------------------------------
 // CONFIG  (change values here if email addresses ever move)
 // -----------------------------------------------------------------------------
-const TO_EMAIL    = 'agrecia@resus.co.za';
+// >>> TEMPORARY <<< — redirected to Louis's inbox for format/layout testing.
+// To put production back, change this to: 'agrecia@resus.co.za'
+const TO_EMAIL    = 'louisvent@gmail.com';
 // Sender must be an Unrestricted cPanel mailbox; no-reply@ was set to
 // Restricted (outgoing-only block) and Exim refuses to deliver from it.
 const FROM_EMAIL  = 'bookings@advancedlifesupport.co.za';
