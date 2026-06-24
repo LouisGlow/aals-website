@@ -31,7 +31,7 @@ if (burger && mobNav) {
 
 // -------------------------------------------------------------
 // REGISTRATION FORM
-//   - Pre-fill course + date from query params (?course=acls&date=2026-07-06-acls)
+//   - Pre-fill course + date from query params (?course=acls&date=2026-07-10-acls)
 //   - On submit: prevent default, hide form, reveal inline success state.
 //   - TODO: wire to a real backend. Replace the body of `handleSubmit`
 //     with a fetch() to a Cloudflare Pages Function (or Formspree/etc.)
