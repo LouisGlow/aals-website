@@ -66,9 +66,7 @@ if (!defined('RESEND_API_KEY') || RESEND_API_KEY === '') {
 // -----------------------------------------------------------------------------
 // CONFIG  (change values here if email addresses ever move)
 // -----------------------------------------------------------------------------
-// >>> TEMPORARY <<< — redirected to Louis's inbox for format/layout testing.
-// To put production back, change this to: 'agrecia@resus.co.za'
-const TO_EMAIL    = 'louisvent@gmail.com';
+const TO_EMAIL    = 'agrecia@resus.co.za';
 const FROM_EMAIL  = 'bookings@advancedlifesupport.co.za';
 const FROM_NAME   = 'AALS Registration';
 const REPLY_HINT  = 'agrecia@resus.co.za';
