@@ -43,7 +43,9 @@ set_exception_handler(function ($e) {
 // CONFIG  (change values here if email addresses ever move)
 // -----------------------------------------------------------------------------
 const TO_EMAIL    = 'agrecia@resus.co.za';
-const FROM_EMAIL  = 'no-reply@advancedlifesupport.co.za';
+// Sender must be an Unrestricted cPanel mailbox; no-reply@ was set to
+// Restricted (outgoing-only block) and Exim refuses to deliver from it.
+const FROM_EMAIL  = 'bookings@advancedlifesupport.co.za';
 const FROM_NAME   = 'AALS Registration';
 const REPLY_HINT  = 'agrecia@resus.co.za';
 const SITE_NAME   = 'Academy of Advanced Life Support';
