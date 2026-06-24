@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Don't index the registration submission endpoint
+Disallow: /register.php
+
+Sitemap: https://advancedlifesupport.co.za/sitemap.xml

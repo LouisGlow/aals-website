@@ -1,0 +1,73 @@
+# AALS site — .htaccess
+#
+# 1. Return 410 Gone for WordPress paths that bots/scanners hammer. Tells
+#    crawlers "permanently gone, stop coming back" so the access log
+#    quiets down over time.
+# 2. 301 redirect from legacy WordPress URLs (Google-indexed) to the
+#    new static-site equivalents so old search results don't dead-end.
+# 3. Default index = index.html.
+
+# -----------------------------------------------------------------------------
+# 410 GONE — kill bot probes of WordPress endpoints (no redirect, just dead)
+# -----------------------------------------------------------------------------
+RedirectMatch 410 ^/wp-login\.php
+RedirectMatch 410 ^/wp-admin($|/)
+RedirectMatch 410 ^/wp-includes($|/)
+RedirectMatch 410 ^/wp-content($|/)
+RedirectMatch 410 ^/xmlrpc\.php
+RedirectMatch 410 ^/wp-sitemap\.xml
+RedirectMatch 410 ^/wp-json($|/)
+
+# -----------------------------------------------------------------------------
+# 301 REDIRECTS — legacy WordPress URLs -> new static URLs
+# -----------------------------------------------------------------------------
+RewriteEngine On
+
+# Old course detail pages (/display_courses/<slug>/) -> /courses.html#<anchor>
+# Order matters: specific patterns first, then a catch-all.
+RewriteRule ^display_courses/basic-life-support[^/]*/?$            /courses.html#bls            [R=301,L,NE]
+RewriteRule ^display_courses/advanced-cardiovascular-life-support[^/]*/?$  /courses.html#acls    [R=301,L,NE]
+RewriteRule ^display_courses/acls-for-experienced-providers[^/]*/?$ /courses.html#acls-ep       [R=301,L,NE]
+RewriteRule ^display_courses/acls-and-pals-update[^/]*/?$          /courses.html#acls-refresher [R=301,L,NE]
+RewriteRule ^display_courses/paediatric-advanced-life-support[^/]*/?$ /courses.html#pals        [R=301,L,NE]
+RewriteRule ^display_courses/advanced-medical-life-support[^/]*/?$ /courses.html#amls           [R=301,L,NE]
+RewriteRule ^display_courses/ecg[^/]*/?$                           /courses.html#ecg            [R=301,L,NE]
+RewriteRule ^display_courses/(?:advanced-neonatal|neonatal-resuscitation|nrp)[^/]*/?$ /courses.html#nrp [R=301,L,NE]
+RewriteRule ^display_courses/international-trauma[^/]*/?$          /courses.html#itls           [R=301,L,NE]
+RewriteRule ^display_courses/?(.*)$                                /courses.html                [R=301,L]
+
+# Old course-by-type URLs
+RewriteRule ^course_type/bls/?$    /courses.html#bls    [R=301,L,NE]
+RewriteRule ^course_type/acls/?$   /courses.html#acls   [R=301,L,NE]
+RewriteRule ^course_type/pals/?$   /courses.html#pals   [R=301,L,NE]
+RewriteRule ^course_type/amls/?$   /courses.html#amls   [R=301,L,NE]
+RewriteRule ^course_type/itls/?$   /courses.html#itls   [R=301,L,NE]
+RewriteRule ^course_type/ecg/?$    /courses.html#ecg    [R=301,L,NE]
+RewriteRule ^course_type/nrp/?$    /courses.html#nrp    [R=301,L,NE]
+RewriteRule ^course_type/?(.*)$    /courses.html        [R=301,L]
+
+# Old course-date pages
+RewriteRule ^course_dates/?(.*)$   /course-dates.html   [R=301,L]
+RewriteRule ^course-dates/?$       /course-dates.html   [R=301,L]
+
+# Old /courses/ index (with trailing slash)
+RewriteRule ^courses/?$            /courses.html        [R=301,L]
+RewriteRule ^contact/?$            /contact.html        [R=301,L]
+RewriteRule ^register/?$           /register.html       [R=301,L]
+RewriteRule ^educational-perspectives/?$ /educational-perspectives.html [R=301,L]
+
+# -----------------------------------------------------------------------------
+# DEFAULTS
+# -----------------------------------------------------------------------------
+DirectoryIndex index.html index.htm
+
+# Modest browser caching for static assets (helps repeat visitors)
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/png "access plus 30 days"
+  ExpiresByType image/jpeg "access plus 30 days"
+  ExpiresByType image/svg+xml "access plus 30 days"
+  ExpiresByType image/x-icon "access plus 30 days"
+  ExpiresByType text/css "access plus 7 days"
+  ExpiresByType application/javascript "access plus 7 days"
+</IfModule>
