@@ -94,24 +94,24 @@
             <span class="sec-tag">Send a Message</span>
             <h2 class="sec-title">We&rsquo;d love to hear from you</h2>
           </div>
-          <form class="contact-form" action="mailto:agrecia@resus.co.za" method="get" enctype="text/plain">
+          <form id="contact-form" class="contact-form" action="contact.php" method="post" novalidate>
             <div class="form-row">
               <div class="form-field">
-                <label for="fname">First name</label>
-                <input type="text" id="fname" name="first_name" placeholder="Jane" required>
+                <label for="fname">First name<span class="req">*</span></label>
+                <input type="text" id="fname" name="first_name" placeholder="Jane" required autocomplete="given-name">
               </div>
               <div class="form-field">
                 <label for="lname">Last name</label>
-                <input type="text" id="lname" name="last_name" placeholder="Smith">
+                <input type="text" id="lname" name="last_name" placeholder="Smith" autocomplete="family-name">
               </div>
             </div>
             <div class="form-field">
-              <label for="email">Email address</label>
-              <input type="email" id="email" name="email" placeholder="jane@hospital.co.za" required>
+              <label for="email">Email address<span class="req">*</span></label>
+              <input type="email" id="email" name="email" placeholder="jane@hospital.co.za" required autocomplete="email">
             </div>
             <div class="form-field">
               <label for="phone">Phone number</label>
-              <input type="tel" id="phone" name="phone" placeholder="+27 82 000 0000">
+              <input type="tel" id="phone" name="phone" placeholder="+27 82 000 0000" autocomplete="tel">
             </div>
             <div class="form-field">
               <label for="subject">Subject</label>
@@ -125,13 +125,22 @@
               </select>
             </div>
             <div class="form-field">
-              <label for="message">Message</label>
+              <label for="message">Message<span class="req">*</span></label>
               <textarea id="message" name="message" placeholder="Your message&hellip;" required></textarea>
             </div>
             <div>
-              <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;padding:12px 20px;font-size:15px;">Send Message</button>
+              <button type="submit" id="contact-submit" class="btn btn-primary" style="width:100%;justify-content:center;padding:12px 20px;font-size:15px;">Send Message</button>
             </div>
           </form>
+
+          <!-- SUCCESS STATE (hidden until form submits) -->
+          <div id="contact-success" class="reg-success" hidden style="padding:40px 28px;">
+            <div class="reg-success-icon" aria-hidden="true">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <h2>Thank you &mdash; we&rsquo;ve received your message</h2>
+            <p>We&rsquo;ll reply within one working day. If you need to reach us in the meantime, email <a href="mailto:agrecia@resus.co.za">agrecia@resus.co.za</a> or call <a href="tel:+27114781874">+27&nbsp;(0)11&nbsp;478&nbsp;1874</a>.</p>
+          </div>
         </div>
 
         <!-- SIDEBAR -->

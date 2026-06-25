@@ -646,7 +646,8 @@ a:hover { text-decoration: underline; }
 /* Defensive: ensure the JS-set hidden attribute actually hides these elements
    (the display: flex / block rules above would otherwise override [hidden]) */
 .reg-form[hidden],
-.reg-success[hidden] { display: none !important; }
+.reg-success[hidden],
+.contact-form[hidden] { display: none !important; }
 .form-section {
   border: 1px solid var(--border); border-radius: var(--r-lg);
   padding: 26px 28px 28px;

@@ -109,3 +109,63 @@ if (burger && mobNav) {
 
   form.addEventListener('submit', handleSubmit);
 }());
+
+// -------------------------------------------------------------
+// CONTACT FORM
+//   POST contact.php (Resend), swap form for success state.
+// -------------------------------------------------------------
+(function () {
+  const form = document.getElementById('contact-form');
+  if (!form) return;
+  const successEl = document.getElementById('contact-success');
+  const submitBtn = document.getElementById('contact-submit');
+  const submitLabel = submitBtn ? submitBtn.textContent : 'Send Message';
+
+  function showError(msg) {
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = submitLabel;
+    }
+    alert(
+      "Sorry, your message couldn't be sent right now.\n\n" +
+      (msg ? msg + "\n\n" : "") +
+      "Please email agrecia@resus.co.za directly with your enquiry."
+    );
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending…';
+    }
+
+    try {
+      const res = await fetch('contact.php', {
+        method: 'POST',
+        body: new FormData(form),
+      });
+      let data = null;
+      try { data = await res.json(); } catch (_) { /* ignore parse errors */ }
+
+      if (!res.ok || !data || !data.ok) {
+        showError(data && data.error ? data.error : 'HTTP ' + res.status);
+        return;
+      }
+
+      form.hidden = true;
+      if (successEl) {
+        successEl.hidden = false;
+        successEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    } catch (err) {
+      showError(err && err.message ? err.message : 'Network error');
+    }
+  }
+
+  form.addEventListener('submit', handleSubmit);
+}());
